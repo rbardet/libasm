@@ -1,6 +1,6 @@
 NAME = libasm.a
 
-SOURCES = ft_strlen.s
+SOURCES = ft_strlen.s ft_strcpy.s
 
 OBJECTS = $(SOURCES:.s=.o)
 
