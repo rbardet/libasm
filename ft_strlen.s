@@ -2,11 +2,13 @@ section .text
 	global ft_strlen
 
 ft_strlen:
-	XOR rax, rax
+	XOR eax, eax
 .loop:
-	CMP [rdi + rax], byte 0x00
+	CMP [rdi], byte 0x00
 	JZ .return
-	INC rax
+	INC eax
+	INC rdi
 	JMP .loop
 .return:
+	MOVSX rax, eax
 	ret
