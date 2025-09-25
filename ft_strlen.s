@@ -4,10 +4,9 @@ section .text
 ft_strlen:
 	XOR rax, rax
 .loop:
-	CMP [rdi], byte 0x00
+	CMP [rdi + rax], byte 0x00
 	JZ .return
 	INC rax
-	INC rdi
 	JMP .loop
 .return:
 	ret
