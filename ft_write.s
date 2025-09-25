@@ -5,7 +5,7 @@ ft_write:
     XOR rax, rax
 .loop:
     CMP rdx, rax
-    JMP .return
+    JZ .return
     INC rax
     JMP .loop
 .return:

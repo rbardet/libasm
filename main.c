@@ -89,7 +89,10 @@ void test_strcmp() {
 	printf("mine: %d\n", ft_strcmp(str5, str5_1));
 }
 
-
+void test_write() {
+	char *str1 = "test\n";
+	write(1, str1, ft_strlen(str1));
+}
 
 int main(void) {
 	printf("-----ft_strlen-----\n");
@@ -99,6 +102,7 @@ int main(void) {
 	printf("-----ft_strcmp-----\n");
 	test_strcmp();
 	printf("-----ft_write-----\n");
+	test_write();
 	return (0);
 }
 

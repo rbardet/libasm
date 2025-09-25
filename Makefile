@@ -1,6 +1,7 @@
 NAME = libasm.a
 
 SOURCES = ft_strlen.s ft_strcpy.s ft_strcmp.s \
+	ft_write.s
 
 OBJECTS = $(SOURCES:.s=.o)
 
