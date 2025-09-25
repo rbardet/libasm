@@ -13,4 +13,4 @@ ft_strcpy:
 	JMP .loop
 .return:
 	MOV rax, rdi
-	ret
+	RET

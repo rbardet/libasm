@@ -17,4 +17,4 @@ ft_strcmp:
 	JMP .loop
 .return:
 	MOVSX rax, al
-	ret
+	RET

@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 extern size_t ft_strlen(const char *s);
 extern char *ft_strcpy(char *dest, const char *src);
 extern int ft_strcmp(const char *s1, const char *s2);
+extern ssize_t ft_write(int fd, const void *buf, size_t count);
 
 void test_strlen() {
 	const char *str1 = "Hello World!";
@@ -96,6 +98,7 @@ int main(void) {
 	test_strcpy();
 	printf("-----ft_strcmp-----\n");
 	test_strcmp();
+	printf("-----ft_write-----\n");
 	return (0);
 }
 
