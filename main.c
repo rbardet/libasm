@@ -92,6 +92,7 @@ void test_strcmp() {
 void test_write() {
 	char *str1 = "test\n";
 	write(1, str1, ft_strlen(str1));
+	ft_write(1, str1, ft_strlen(str1));
 }
 
 int main(void) {

@@ -3,10 +3,15 @@ section .text
 
 ft_write:
     XOR rax, rax
-.loop:
-    CMP rdx, rax
-    JZ .return
-    INC rax
-    JMP .loop
-.return:
+    XOR ebx, ebx
+    XOR ecx, ecx
+    XOR edx, edx
+
+    MOVSXD edx, rdx
+    MOVSXD ecx, rsi
+    MOVSXD ebx, rdi
+    MOV eax, 4
+    SYSCALL
+
+    MOV rax, rdx
     RET
