@@ -11,6 +11,7 @@ extern size_t ft_strlen(const char *s);
 extern char *ft_strcpy(char *dest, const char *src);
 extern int ft_strcmp(const char *s1, const char *s2);
 extern ssize_t ft_write(int fd, const void *buf, size_t count);
+extern ssize_t ft_read(int fd, void *buf, size_t count);
 
 void test_strlen() {
 	const char *str1 = "Hello World!";
@@ -36,28 +37,28 @@ void test_strlen() {
 
 void test_strcpy() {
 	const char *str1 = "Hello World!";
-	char *str1_1 = malloc(sizeof(char) * ft_strlen(str1));
+	char *str1_1 = malloc(sizeof(char) * ft_strlen(str1) + 1);
 
 	printf("real func: %s\n", strcpy(str1_1, str1));
 	printf("mine: %s\n", strcpy(str1_1, str1));
 	free(str1_1);
 
 	const char *str2 = "Lille OSC";
-	str1_1 = malloc(sizeof(char) * ft_strlen(str2));
+	str1_1 = malloc(sizeof(char) * ft_strlen(str2) + 1);
 
-	printf("real func: %s\n", strcpy(str1_1, str2));
+	printf("real func: %s\n", strcpy(str1_1, str2) + 1);
 	printf("mine: %s\n", strcpy(str1_1, str2));
 	free(str1_1);
 
 	const char *str3 = "Le club est né de la fusion des deux clubs professionnels de la ville, l'Olympique lillois et le Sporting Club fivois, situés dans deux quartiers lillois différents, qui avaient participé aux sept premières éditions du championnat de France professionnel avant l'arrêt de la compétition à cause de la Seconde Guerre mondiale. D'abord appelé Stade lillois, le club prend dès novembre 1944 le nom de Lille Olympique Sporting Club, qui rappelle ceux des deux clubs d'origine. Abrégé en Lille OSC, il donne lieu à l'acronyme LOSC, qui s'impose pour former le nom courant du club, avec mention redondante du nom de la ville : LOSC Lille.";
-	str1_1 = malloc(sizeof(char) * ft_strlen(str3));
+	str1_1 = malloc(sizeof(char) * ft_strlen(str3) + 1);
 
 	printf("real func: %s\n", strcpy(str1_1, str3));
 	printf("mine: %s\n", strcpy(str1_1, str3));
 	free(str1_1);
 
 	const char *str4 = "";
-	str1_1 = malloc(sizeof(char) * ft_strlen(str4));
+	str1_1 = malloc(sizeof(char) * ft_strlen(str4) + 1);
 
 	printf("real func: %s\n", strcpy(str1_1, str4));
 	printf("mine: %s\n", strcpy(str1_1, str4));
@@ -102,28 +103,35 @@ void test_write() {
 	len = ft_write(1, str1, ft_strlen(str1));
 	printf("\nmine: %d\n", len);
 
+	errno = 0;
 	len = write(1, str1, 3);
 	printf("\nreal func: %d\n", len);
 	printf("errno :%d\n", errno);
+	errno = 0;
 	len = ft_write(1, str1, 3);
 	printf("\nmine: %d\n", len);
 	printf("errno :%d\n", errno);
 
 	const char *str2 = "Le club est né de la fusion des deux clubs professionnels de la ville, l'Olympique lillois et le Sporting Club fivois, situés dans deux quartiers lillois différents, qui avaient participé aux sept premières éditions du championnat de France professionnel avant l'arrêt de la compétition à cause de la Seconde Guerre mondiale. D'abord appelé Stade lillois, le club prend dès novembre 1944 le nom de Lille Olympique Sporting Club, qui rappelle ceux des deux clubs d'origine. Abrégé en Lille OSC, il donne lieu à l'acronyme LOSC, qui s'impose pour former le nom courant du club, avec mention redondante du nom de la ville : LOSC Lille.";
+	errno = 0;
 	len = write(1, str2, ft_strlen(str2));
 	printf("\nreal func: %d\n", len);
 	printf("errno :%d\n", errno);
+	errno = 0;
 	len = ft_write(1, str2, ft_strlen(str2));
 	printf("\nmine: %d\n", len);
 	printf("errno :%d\n", errno);
 
 	int fd = open("wrong_file.txt", O_CREAT | O_RDONLY, 0000);
+
 	const char *real = "real\n";
 	const char *mine = "mine\n";
 
+	errno = 0;
 	len = write(fd, real, ft_strlen(real));
 	printf("\nreal func: in wrong file %d\n", len);
 	printf("errno :%d\n", errno);
+	errno = 0;
 	len = ft_write(fd, mine, ft_strlen(mine));
 	printf("\nmine: in wrong file %d\n", len);
 	printf("errno :%d\n", errno);
@@ -132,17 +140,21 @@ void test_write() {
 
 	fd = open("test.txt", O_CREAT | O_RDWR, 0777);
 
+	errno = 0;
 	len = write(fd, real, ft_strlen(real));
 	printf("\nreal func: in real file %d\n", len);
 	printf("errno :%d\n", errno);
+	errno = 0;
 	len = ft_write(fd, mine, ft_strlen(mine));
 	printf("\nmine: in real file %d\n", len);
 	printf("errno :%d\n", errno);
 
 	close(fd);
+	errno = 0;
 	len = write(45, real, ft_strlen(real));
 	printf("\nreal func: in wrong fd %d\n", len);
 	printf("errno :%d\n", errno);
+	errno = 0;
 	len = ft_write(45, mine, ft_strlen(mine));
 	printf("\nmine: in wrong fd %d\n", len);
 	printf("errno :%d\n", errno);
@@ -150,6 +162,44 @@ void test_write() {
 
 void test_read() {
 
+	int fd = 0;
+	fd = open("test.txt", O_RDWR, 0777);
+
+	char buff[256];
+	errno = 0;
+	int len = read(fd, buff, sizeof(buff) - 1);
+	if (len >= 0) {
+		buff[len] = '\0';
+	}
+	printf("\nreal func: in real file :\n%d %s\n", len, buff);
+	printf("errno :%d\n", errno);
+	close(fd);
+	char buff2[256];
+	fd = open("test.txt", O_CREAT | O_RDWR, 0777);
+	errno = 0;
+	len = ft_read(fd, buff2, sizeof(buff2) - 1);
+	if (len >= 0) {
+		buff[len] = '\0';
+	}
+	printf("\nmine: in real file: \n%d %s\n", len, buff2);
+	printf("errno :%d\n", errno);
+	close(fd);
+	char buff3[256];
+	fd = open("wrong_file.txt", O_RDWR, 0000);
+	errno = 0;
+	len = read(fd, buff3, sizeof(buff3) - 1);
+	buff3[0] = '\0';
+	printf("\nreal func: in wrong file :\n%d %s\n", len, buff3);
+	printf("errno :%d\n", errno);
+	close(fd);
+	char buff4[256];
+	fd = open("wrong_file.txt", O_RDWR, 0000);
+	errno = 0;
+	len = ft_read(fd, buff4, sizeof(buff4) - 1);
+	buff4[0] = '\0';
+	printf("\nmine: in wrong file: \n%d %s\n", len, buff4);
+	printf("errno :%d\n", errno);
+	close(fd);
 }
 
 int main(void) {
@@ -161,7 +211,7 @@ int main(void) {
 	test_strcmp();
 	printf("-----ft_write-----\n");
 	test_write();
-	printf("-----ft_read-----");
+	printf("-----ft_read-----\n");
 	test_read();
 	return (0);
 }
