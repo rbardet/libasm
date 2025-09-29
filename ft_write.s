@@ -1,17 +1,19 @@
+extern __errno_location
 section .text
-    global ft_write
+	global ft_write
 
 ft_write:
-    XOR rax, rax
-    XOR ebx, ebx
-    XOR ecx, ecx
-    XOR edx, edx
+	MOV rax, 1
+	SYSCALL
 
-    MOVSXD edx, rdx
-    MOVSXD ecx, rsi
-    MOVSXD ebx, rdi
-    MOV eax, 4
-    SYSCALL
-
-    MOV rax, rdx
-    RET
+	CMP rax, 0
+	JL .err
+	MOV rax, rdx
+	RET
+.err:
+	NEG rax
+	MOV rdi, rax
+	CALL __errno_location
+	MOV [rax], rdi
+	MOV rax, -1
+	RET

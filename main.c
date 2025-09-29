@@ -2,6 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
 
 extern size_t ft_strlen(const char *s);
 extern char *ft_strcpy(char *dest, const char *src);
@@ -72,7 +76,7 @@ void test_strcmp() {
 
 	printf("real func: %d\n", strcmp(str2, str2_1));
 	printf("mine: %d\n", ft_strcmp(str2, str2_1));
-	
+
 	char *str3 = "a";
 	char *str3_1 = "c";
 	printf("real func: %d\n", strcmp(str3, str3_1));
@@ -90,9 +94,62 @@ void test_strcmp() {
 }
 
 void test_write() {
-	char *str1 = "test\n";
-	write(1, str1, ft_strlen(str1));
-	ft_write(1, str1, ft_strlen(str1));
+	int len = 0;
+	const char *str1 = "test\n";
+
+	len = write(1, str1, ft_strlen(str1));
+	printf("\nreal func: %d\n", len);
+	len = ft_write(1, str1, ft_strlen(str1));
+	printf("\nmine: %d\n", len);
+
+	len = write(1, str1, 3);
+	printf("\nreal func: %d\n", len);
+	printf("errno :%d\n", errno);
+	len = ft_write(1, str1, 3);
+	printf("\nmine: %d\n", len);
+	printf("errno :%d\n", errno);
+
+	const char *str2 = "Le club est né de la fusion des deux clubs professionnels de la ville, l'Olympique lillois et le Sporting Club fivois, situés dans deux quartiers lillois différents, qui avaient participé aux sept premières éditions du championnat de France professionnel avant l'arrêt de la compétition à cause de la Seconde Guerre mondiale. D'abord appelé Stade lillois, le club prend dès novembre 1944 le nom de Lille Olympique Sporting Club, qui rappelle ceux des deux clubs d'origine. Abrégé en Lille OSC, il donne lieu à l'acronyme LOSC, qui s'impose pour former le nom courant du club, avec mention redondante du nom de la ville : LOSC Lille.";
+	len = write(1, str2, ft_strlen(str2));
+	printf("\nreal func: %d\n", len);
+	printf("errno :%d\n", errno);
+	len = ft_write(1, str2, ft_strlen(str2));
+	printf("\nmine: %d\n", len);
+	printf("errno :%d\n", errno);
+
+	int fd = open("wrong_file.txt", O_CREAT | O_RDONLY, 0000);
+	const char *real = "real\n";
+	const char *mine = "mine\n";
+
+	len = write(fd, real, ft_strlen(real));
+	printf("\nreal func: in wrong file %d\n", len);
+	printf("errno :%d\n", errno);
+	len = ft_write(fd, mine, ft_strlen(mine));
+	printf("\nmine: in wrong file %d\n", len);
+	printf("errno :%d\n", errno);
+
+	close(fd);
+
+	fd = open("test.txt", O_CREAT | O_RDWR, 0777);
+
+	len = write(fd, real, ft_strlen(real));
+	printf("\nreal func: in real file %d\n", len);
+	printf("errno :%d\n", errno);
+	len = ft_write(fd, mine, ft_strlen(mine));
+	printf("\nmine: in real file %d\n", len);
+	printf("errno :%d\n", errno);
+
+	close(fd);
+	len = write(45, real, ft_strlen(real));
+	printf("\nreal func: in wrong fd %d\n", len);
+	printf("errno :%d\n", errno);
+	len = ft_write(45, mine, ft_strlen(mine));
+	printf("\nmine: in wrong fd %d\n", len);
+	printf("errno :%d\n", errno);
+}
+
+void test_read() {
+
 }
 
 int main(void) {
@@ -104,12 +161,14 @@ int main(void) {
 	test_strcmp();
 	printf("-----ft_write-----\n");
 	test_write();
+	printf("-----ft_read-----");
+	test_read();
 	return (0);
 }
 
-// 1er argument → rdi
-// 2ème argument → rsi
-// 3ème argument → rdx
-// 4ème argument → rcx
-// 5ème argument → r8
-// 6ème argument → r9
+// 1er argument rdi
+// 2eme argument rsi
+// 3eme argument rdx
+// 4eme argument rcx
+// 5eme argument r8
+// 6eme argument r9
