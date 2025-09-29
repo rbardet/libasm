@@ -7,9 +7,8 @@ ft_read:
 	MOV rax, 0
 	SYSCALL
 
-	CMP rax, -1
+	CMP rax, 0
 	JL .err
-
 	RET
 .err:
 	NEG rax
