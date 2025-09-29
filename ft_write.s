@@ -8,12 +8,11 @@ ft_write:
 
 	CMP rax, 0
 	JL .err
-	MOV rax, rdx
 	RET
 .err:
 	NEG rax
-	MOV rdi, rax
+	MOV rcx, rax
 	CALL __errno_location
-	MOV [rax], rdi
+	MOV [rax], rcx
 	MOV rax, -1
 	RET
