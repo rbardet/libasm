@@ -1,26 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
-
-typedef struct s_list
-{
-	void *data;
-	struct s_list *next;
-} 				t_list;
-
-extern size_t ft_strlen(const char *s);
-extern char *ft_strcpy(char *dest, const char *src);
-extern int ft_strcmp(const char *s1, const char *s2);
-extern ssize_t ft_write(int fd, const void *buf, size_t count);
-extern ssize_t ft_read(int fd, void *buf, size_t count);
-extern char *ft_strdup(const char *s);
-extern t_list *ft_list_push_front(t_list **begin_list, void *data);
-extern int ft_list_size(t_list *begin_list);
+#include "libasm.h"
 
 void test_strlen() {
 	const char *str1 = "Hello World!";
@@ -261,12 +239,13 @@ void test_strdup() {
 // 	return (0);
 // }
 
+
 //for bonus
 int main(void) {
 	t_list *list = NULL;
-	char *test = "LILLE";
-	char *test2 = "LOSC";
-	char *test3 = "OSC";
+	char *test = "1";
+	char *test2 = "2";
+	char *test3 = "3";
 	ft_list_push_front(&list, test);
 	ft_list_push_front(&list, test2);
 	ft_list_push_front(&list, test3);
@@ -279,7 +258,8 @@ int main(void) {
 		free(list2);
 
 	}
-	
+	int i = ft_list_sort(&list, ft_strcmp);
+	printf("%d\n", i);
 }
 
 // 1er argument rdi
