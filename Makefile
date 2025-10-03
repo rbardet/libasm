@@ -1,7 +1,8 @@
 NAME = libasm.a
 
 SOURCES = ft_strlen.s ft_strcpy.s ft_strcmp.s \
-	ft_write.s ft_read.s ft_strdup.s
+	ft_write.s ft_read.s ft_strdup.s \
+	ft_list_push_front.s
 
 OBJECTS = $(SOURCES:.s=.o)
 
@@ -17,7 +18,7 @@ clean:
 	rm -f ${OBJECTS}
 
 fclean: clean
-	rm -f ${NAME}
+	rm -f ${NAME} a.out
 
 re: fclean all
 
