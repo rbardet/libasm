@@ -266,8 +266,11 @@ int main(void) {
 	t_list *list = NULL;
 	char *test = "LILLE";
 	char *test2 = "LOSC";
+	char *test3 = "OSC";
 	ft_list_push_front(&list, test);
 	ft_list_push_front(&list, test2);
+	ft_list_push_front(&list, test3);
+	printf("nb of element in list: %d\n", ft_list_size(list));
 	t_list *list2 = NULL;
 	while (list) {
 		printf("%s\n", (char *)list->data);
@@ -276,6 +279,7 @@ int main(void) {
 		free(list2);
 
 	}
+	
 }
 
 // 1er argument rdi
