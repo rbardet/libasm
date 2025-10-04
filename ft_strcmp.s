@@ -3,17 +3,17 @@ section .text
 
 ft_strcmp:
 	XOR rax, rax
+	XOR r15, r15
 .loop:
-	CMP [rdi], byte 0x00
+	CMP [rdi + r15], byte 0x00
 	JZ .return
-	CMP [rsi], byte 0x00
+	CMP [rsi + r15], byte 0x00
 	JZ .return
-	MOV al, [rdi]
-	SUB al, [rsi]
+	MOV al, [rdi + r15]
+	SUB al, [rsi + r15]
 	CMP al, byte 0x00
 	JNE .return
-	INC rdi
-	INC rsi
+	INC r15
 	JMP .loop
 .return:
 	MOVSX rax, al
