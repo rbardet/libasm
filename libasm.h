@@ -24,6 +24,5 @@ extern ssize_t ft_read(int fd, void *buf, size_t count);
 extern char *ft_strdup(const char *s);
 extern t_list *ft_list_push_front(t_list **begin_list, void *data);
 extern int ft_list_size(t_list *begin_list);
-extern void ft_list_sort(t_list **begin_list, void (*cmp)());
 
 #endif
