@@ -223,48 +223,40 @@ void test_strdup() {
 	free(str6);
 }
 
-// int main(void) {
-// 	printf("-----ft_strlen-----\n");
-// 	test_strlen();
-// 	printf("-----ft_strcpy-----\n");
-// 	test_strcpy();
-// 	printf("-----ft_strcmp-----\n");
-// 	test_strcmp();
-// 	printf("-----ft_write-----\n");
-// 	test_write();
-// 	printf("-----ft_read-----\n");
-// 	test_read();
-// 	printf("-----ft_strdup-----\n");
-// 	test_strdup();
-// 	return (0);
-// }
+int main(void) {
+	printf("-----ft_strlen-----\n");
+	test_strlen();
+	printf("-----ft_strcpy-----\n");
+	test_strcpy();
+	printf("-----ft_strcmp-----\n");
+	test_strcmp();
+	printf("-----ft_write-----\n");
+	test_write();
+	printf("-----ft_read-----\n");
+	test_read();
+	printf("-----ft_strdup-----\n");
+	test_strdup();
+	return (0);
+}
 
 
 //for bonus
-int main(void) {
-	t_list *list = NULL;
-	char *test = "1";
-	char *test2 = "2";
-	char *test3 = "3";
-	ft_list_push_front(&list, test);
-	ft_list_push_front(&list, test2);
-	ft_list_push_front(&list, test3);
-	printf("nb of element in list: %d\n", ft_list_size(list));
-	t_list *list2 = NULL;
-	while (list) {
-		printf("%s\n", (char *)list->data);
-		list2 = list;
-		list = list->next;
-		free(list2);
-
-	}
-	int i = ft_list_sort(&list, ft_strcmp);
-	printf("%d\n", i);
-}
-
-// 1er argument rdi
-// 2eme argument rsi
-// 3eme argument rdx
-// 4eme argument rcx
-// 5eme argument r8
-// 6eme argument r9
+// int main(void) {
+// 	t_list *list = NULL;
+// 	char *test = "1";
+// 	char *test2 = "2";
+// 	char *test3 = "3";
+// 	char *test4 = "4";
+// 	ft_list_push_front(&list, test);
+// 	ft_list_push_front(&list, test2);
+// 	ft_list_push_front(&list, test3);
+// 	ft_list_push_front(&list, test4);
+// 	printf("nb of element in list: %d\n", ft_list_size(list));
+// 	t_list *list2 = NULL;
+// 	while (list) {
+// 		printf("%s\n", (char *)list->data);
+// 		list2 = list;
+// 		list = list->next;
+// 		free(list2);
+// 	}
+// }
