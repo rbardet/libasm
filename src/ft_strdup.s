@@ -13,9 +13,9 @@ ft_strdup:
 	MOV rdi, rax
 	INC rdi
 	CALL malloc
+	POP rsi
 	CMP rax, 0
 	JL .err
-	POP rsi
 	MOV rdi, rax
 	CALL ft_strcpy
 	RET

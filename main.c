@@ -1,4 +1,4 @@
-#include "libasm.h"
+#include "src/libasm.h"
 
 void test_strlen() {
 	const char *str1 = "Hello World!";
@@ -70,7 +70,7 @@ void test_strcmp() {
 	printf("real func: %d\n", strcmp(str3, str3_1));
 	printf("mine: %d\n", ft_strcmp(str3, str3_1));
 
-	char *str4 = "f";
+	char *str4 = "";
 	char *str4_1 = "a";
 	printf("real func: %d\n", strcmp(str4, str4_1));
 	printf("mine: %d\n", ft_strcmp(str4, str4_1));
@@ -238,25 +238,3 @@ int main(void) {
 	test_strdup();
 	return (0);
 }
-
-
-//for bonus
-// int main(void) {
-// 	t_list *list = NULL;
-// 	char *test = "1";
-// 	char *test2 = "2";
-// 	char *test3 = "3";
-// 	char *test4 = "4";
-// 	ft_list_push_front(&list, test);
-// 	ft_list_push_front(&list, test2);
-// 	ft_list_push_front(&list, test3);
-// 	ft_list_push_front(&list, test4);
-// 	printf("nb of element in list: %d\n", ft_list_size(list));
-// 	t_list *list2 = NULL;
-// 	while (list) {
-// 		printf("%s\n", (char *)list->data);
-// 		list2 = list;
-// 		list = list->next;
-// 		free(list2);
-// 	}
-// }
