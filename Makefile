@@ -1,12 +1,5 @@
 NAME = libasm.a
 NAME_BONUS = libasm_bonus.a
-MAIN = main.c
-MAIN_BONUS = main_bonus.c
-EXEC = libasm
-EXEC_BONUS = libasm_bonus
-
-FILE = test.txt
-WRONG_FILE = wrong_file.txt
 
 SRC_FILE = src
 BONUS_FILE = bonus
@@ -38,14 +31,11 @@ ${NAME}: ${OBJECTS}
 %.o: %.s
 	${ASM} ${AFLAGS} $< -o $@
 
-${EXEC}: ${NAME} ${MAIN}
-	${CC} ${CFLAGS} ${MAIN} ${NAME} -o ${EXEC}
-
 clean:
-	rm -f ${OBJECTS} ${OBJECTS_BONUS} ${FILE} ${WRONG_FILE}
+	rm -f ${OBJECTS} ${OBJECTS_BONUS}
 
 fclean: clean
-	rm -f ${NAME} ${NAME_BONUS} ${EXEC} ${EXEC_BONUS}
+	rm -f ${NAME} ${NAME_BONUS}
 
 re: fclean all
 
@@ -56,8 +46,5 @@ ${NAME_BONUS}: ${OBJECTS_BONUS}
 
 %.o: %.s
 	${ASM} ${AFLAGS} $< -o $@
-
-${EXEC_BONUS}: ${NAME_BONUS} ${MAIN_BONUS}
-	${CC} ${CFLAGS} ${MAIN_BONUS} ${NAME_BONUS} -o ${EXEC_BONUS}
 
 .PHONY: all clean fclean re bonus
