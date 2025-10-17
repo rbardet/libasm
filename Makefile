@@ -14,9 +14,6 @@ SOURCES = ${SRC_FILE}/ft_strlen.s \
 SOURCES_BONUS = ${BONUS_FILE}/ft_list_push_front.s \
 	${BONUS_FILE}/ft_list_size.s
 
-CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
-
 ASM = nasm
 AFLAGS = -f elf64
 
